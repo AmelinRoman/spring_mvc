@@ -1,11 +1,20 @@
 package com.amelinroman.spring.mvc;
 
+import com.amelinroman.spring.mvc.validation.CheckEmail;
+import jakarta.validation.constraints.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Employee {
+    @NotBlank(message = "name is required field")
+    @Size(min = 2, max = 25, message = "name must be min 2  and max 25 symbols")
     private String name;
+    @NotBlank(message = "surname is required field")
+    @Size(min = 2, max = 25, message = "name must be min 2  and max 25 symbols")
     private String surname;
+    @Min(value = 100, message = "must be greater than 99")
+    @Max(value = 2500, message = "must be less than 2501")
     private int salary;
     private String department;
     private String carBrand;
@@ -13,6 +22,10 @@ public class Employee {
     private Map<String, String> langs;
     private Map<String, String> departments;
     private Map<String, String> carBrands;
+    @CheckEmail(value = "emp.com", message = "mail must ends with emp.com")
+    private String email;
+    @Pattern(regexp = "\\d{3}-\\d{2}-\\d{2}", message = "please use this patter: XXX-XX-XX")
+    private String phoneNumber;
 
     public Employee() {
         departments = new HashMap<>();
@@ -29,6 +42,22 @@ public class Employee {
         langs.put("English", "EN");
         langs.put("Franch", "FR");
         langs.put("Russian", "RU");
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Map<String, String> getLangs() {
